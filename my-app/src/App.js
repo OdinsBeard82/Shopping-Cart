@@ -1,15 +1,15 @@
 import React from 'react';
-import Header from './Components/Header/Header'; 
-import ProductList from './Components/ProductList/ProductList'; 
+import Header from './Components/Header/Header';
+import ProductList from './Components/ProductList/ProductList';
 import Cart from './Components/Cart/Cart';
-import { CartProvider } from './CartContext'; 
-import './App.css'; 
+import { CartProvider } from './CartContext';
+import './App.css';
 
 function App() {
   return (
-    <CartProvider> 
+    <CartProvider>
       <div className="App">
-        <Header /> 
+        <Header />
         <ProductList />
         <Cart />
       </div>

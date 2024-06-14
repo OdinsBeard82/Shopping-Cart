@@ -1,82 +1,88 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import './ProductList.css';
+import { CartContext } from '../../CartContext';
 
 function ProductList() {
+  const { addToCart } = useContext(CartContext); // Access addToCart function from CartContext
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    // Simulate fetching products from an API
     const fetchProducts = async () => {
       const productsData = [
         {
-            id: 1,
-            name: 'Phoenix Suns Jersey',
-            price: '£50',
-            imageUrl: '<iframe src="https://giphy.com/embed/Y6lz7iFsmOJ62tzsQ1" class="product-image" frameBorder="0" allowFullScreen></iframe>',
-            team: 'suns'
-          },
-          {
-            id: 2,
-            name: 'Golden State Warriors Jersey',
-            price: '£55',
-            imageUrl: '<iframe src="https://giphy.com/embed/hCGVRMoZ0p7jjcN0lM" class="product-image" frameBorder="0" allowFullScreen></iframe>',
-            team: 'warriors'
-          },
-          {
-            id: 3,
-            name: 'Dallas Mavericks Jersey',
-            price: '£52',
-            imageUrl: '<iframe src="https://giphy.com/embed/QmAd1Yyx2beOZU20ZR" class="product-image" frameBorder="0" allowFullScreen></iframe>',
-            team: 'mavericks'
-          },
-          {
-            id: 4,
-            name: 'Phoenix Suns Shorts',
-            price: '£30',
-            imageUrl: '<iframe src="https://giphy.com/embed/UdjJ4bOs6VpYIPd4bn" class="product-image" frameBorder="0" allowFullScreen></iframe>',
-            team: 'suns'
-          },
-          {
-            id: 5,
-            name: 'Golden State Warriors Shorts',
-            price: '£32',
-            imageUrl: '<iframe src="https://giphy.com/embed/QRqML9rKTWZTGYOVJ9" class="product-image" frameBorder="0" allowFullScreen></iframe>',
-            team: 'warriors'
-          },
-          {
-            id: 6,
-            name: 'Dallas Mavericks Shorts',
-            price: '£31',
-            imageUrl: '<iframe src="https://giphy.com/embed/QmAd1Yyx2beOZU20ZR" class="product-image" frameBorder="0" allowFullScreen></iframe>',
-            team: 'mavericks'
-          },
-          {
-            id: 7,
-            name: 'Phoenix Suns Shoes',
-            price: '£100',
-            imageUrl: '<iframe src="https://giphy.com/embed/qcd2RWLmFwQOOFiJ5B" class="product-image" frameBorder="0" allowFullScreen></iframe>',
-            team: 'suns'
-          },
-          {
-            id: 8,
-            name: 'Golden State Warriors Shoes',
-            price: '£105',
-            imageUrl: '<iframe src="https://giphy.com/embed/TKvZ8O5UKvNn5Y5HA5" class="product-image" frameBorder="0" allowFullScreen></iframe>',
-            team: 'warriors'
-          }
+          id: 1,
+          name: 'Phoenix Suns Jersey',
+          price: '£50',
+          imageUrl: 'https://media.giphy.com/media/Y6lz7iFsmOJ62tzsQ1/giphy.gif',
+          team: 'suns'
+        },
+        {
+          id: 2,
+          name: 'Golden State Warriors Jersey',
+          price: '£55',
+          imageUrl: 'https://media.giphy.com/media/hCGVRMoZ0p7jjcN0lM/giphy.gif',
+          team: 'warriors'
+        },
+        {
+          id: 3,
+          name: 'Dallas Mavericks Jersey',
+          price: '£52',
+          imageUrl: 'https://media.giphy.com/media/QmAd1Yyx2beOZU20ZR/giphy.gif',
+          team: 'mavericks'
+        },
+        {
+          id: 4,
+          name: 'Phoenix Suns Shorts',
+          price: '£30',
+          imageUrl: 'https://media.giphy.com/media/UdjJ4bOs6VpYIPd4bn/giphy.gif',
+          team: 'suns'
+        },
+        {
+          id: 5,
+          name: 'Golden State Warriors Shorts',
+          price: '£32',
+          imageUrl: 'https://media.giphy.com/media/QRqML9rKTWZTGYOVJ9/giphy.gif',
+          team: 'warriors'
+        },
+        {
+          id: 6,
+          name: 'Dallas Mavericks Shorts',
+          price: '£31',
+          imageUrl: 'https://media.giphy.com/media/QmAd1Yyx2beOZU20ZR/giphy.gif',
+          team: 'mavericks'
+        },
+        {
+          id: 7,
+          name: 'Phoenix Suns Shoes',
+          price: '£100',
+          imageUrl: 'https://media.giphy.com/media/qcd2RWLmFwQOOFiJ5B/giphy.gif',
+          team: 'suns'
+        },
+        {
+          id: 8,
+          name: 'Golden State Warriors Shoes',
+          price: '£105',
+          imageUrl: 'https://media.giphy.com/media/TKvZ8O5UKvNn5Y5HA5/giphy.gif',
+          team: 'warriors'
+        }
       ];
       setProducts(productsData);
     };
     fetchProducts();
   }, []);
 
+  const handleAddToCart = (product) => {
+    addToCart(product); // Call addToCart function with the selected product
+  };
+
   return (
     <div className="product-list">
       {products.map((product) => (
         <div key={product.id} className={`product-item ${product.team}`}>
-          <div dangerouslySetInnerHTML={{ __html: product.imageUrl }}></div>
+          <img src={product.imageUrl} alt={product.name} className="product-image" />
           <h2>{product.name}</h2>
           <p>{product.price}</p>
+          <button onClick={() => handleAddToCart(product)}>Add To Cart</button>
         </div>
       ))}
     </div>
