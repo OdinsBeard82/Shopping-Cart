@@ -3,25 +3,13 @@ import { CartContext } from '../../CartContext';
 import './Cart.css';
 
 function Cart() {
-  const { cartItems, addItemToCart, removeItemFromCart, setItemQuantity } = useContext(CartContext);
+  const { cartItems } = useContext(CartContext);
 
-  const handleQuantityChange = (event, itemId) => {
-    const newQuantity = parseInt(event.target.value);
-    if (!isNaN(newQuantity)) {
-      setItemQuantity(itemId, newQuantity);
-    }
-  };
-
-  const incrementQuantity = (itemId) => {
-    setItemQuantity(itemId, cartItems.find(item => item.id === itemId).quantity + 1);
-  };
-
-  const decrementQuantity = (itemId) => {
-    const currentItem = cartItems.find(item => item.id === itemId);
-    if (currentItem.quantity > 1) {
-      setItemQuantity(itemId, currentItem.quantity - 1);
-    }
-  };
+  // Calculate the total cost
+  const totalCost = cartItems.reduce((total, item) => {
+    const price = parseFloat(item.price.replace('£', ''));
+    return total + price * item.quantity;
+  }, 0);
 
   return (
     <div className="cart">
@@ -29,21 +17,23 @@ function Cart() {
       {cartItems.length === 0 ? (
         <p>Your cart is empty</p>
       ) : (
-        <ul>
-          {cartItems.map((item) => (
-            <li key={item.id}>
-              <div>{item.name}</div>
-              <div>{item.price}</div>
-              <div>
-                Quantity: 
-                <button onClick={() => decrementQuantity(item.id)}>-</button>
-                <input type="number" value={item.quantity} onChange={(e) => handleQuantityChange(e, item.id)} />
-                <button onClick={() => incrementQuantity(item.id)}>+</button>
-              </div>
-              <button onClick={() => addItemToCart(item)}>Add to Cart</button>
-            </li>
-          ))}
-        </ul>
+        <>
+          <ul className="cart-items">
+            {cartItems.map((item) => (
+              <li key={item.id} className="cart-item">
+                <div className="cart-item-details">
+                  <div className="cart-item-name">{item.name}</div>
+                  <div className="cart-item-price">{item.price}</div>
+                  <div className="cart-item-quantity">Quantity: {item.quantity}</div>
+                </div>
+              </li>
+            ))}
+          </ul>
+          <div className="cart-total">
+            <span>Total Cost: </span>
+            <span>£{totalCost.toFixed(2)}</span>
+          </div>
+        </>
       )}
     </div>
   );

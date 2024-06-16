@@ -1,23 +1,69 @@
 .cart {
+    background-color: #f9f9f9;
+    border: 1px solid #1d428a; /* NBA blue */
+    border-radius: 8px;
     padding: 20px;
+    width: 300px;
+    margin: 20px auto;
   }
   
   .cart h1 {
+    font-size: 1.5rem;
     margin-bottom: 20px;
+    text-align: center;
+    color: #c8102e; /* NBA red */
   }
   
-  .cart ul {
+  .cart p {
+    text-align: center;
+    color: #555;
+  }
+  
+  .cart-items {
     list-style-type: none;
     padding: 0;
+    margin: 0;
   }
   
-  .cart li {
+  .cart-item {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    border-bottom: 1px solid #1d428a; /* NBA blue */
+  }
+  
+  .cart-item:last-child {
+    border-bottom: none;
+  }
+  
+  .cart-item-details {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .cart-item-name {
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #1d428a; 
+  }
+  
+  .cart-item-price {
+    color: #888;
+    margin-bottom: 5px;
+  }
+  
+  .cart-item-quantity {
+    color: #333;
+  }
+  
+  .cart-total {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 10px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    margin-top: 20px;
+    font-weight: bold;
+    font-size: 1.2rem;
+    padding-top: 10px;
+    border-top: 1px solid #1d428a; 
+    color: #c8102e; 
   }
-  
   
