@@ -73,7 +73,9 @@ function ProductList() {
   const { addToCart } = useContext(CartContext);
 
   const handleQuantityChange = (id, value) => {
-    setProducts(products.map(product => product.id === id ? { ...product, quantity: value } : product));
+    setProducts(products.map(product => 
+      product.id === id ? { ...product, quantity: value } : product
+    ));
   };
 
   return (
@@ -92,7 +94,9 @@ function ProductList() {
             />
             <button onClick={() => handleQuantityChange(product.id, product.quantity + 1)}>+</button>
           </div>
-          <button className="add-to-cart" onClick={() => addToCart(product)}>Add to Cart</button>
+          <button className="add-to-cart" onClick={() => addToCart({ ...product, quantity: product.quantity })}>
+            Add to Cart
+          </button>
         </div>
       ))}
     </div>
